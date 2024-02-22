@@ -22,125 +22,127 @@ class ClockInOutBody extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 100,
-                    backgroundImage:
-                        Image.file(File(controller.image.value?.path ?? ''))
-                            .image,
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    height: 250,
-                    width: Get.width,
-                    child: Material(
-                      color: Colors.white,
-                      elevation: 1,
-                      clipBehavior: Clip.antiAlias,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      BaseText(
-                                        text: userController
-                                                .profile.value?.namaLengkap ??
-                                            '',
-                                        size: 16,
-                                        bold: FontWeight.w600,
-                                      ),
-                                      BaseText(
-                                        text: userController
-                                                .profile.value?.jabatan?.nama ??
-                                            '',
-                                        bold: FontWeight.w500,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                const Icon(
-                                  MingCute.user_3_line,
-                                  size: 35,
-                                ),
-                              ],
-                            ),
-                            Divider(
-                              height: 15,
-                              color: Colors.grey.shade300,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      const Icon(MingCute.IDcard_line),
-                                      const SizedBox(width: 5),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            BaseText(
-                                              text: 'Employee ID',
-                                              size: 12,
-                                              color: Colors.grey.shade600,
-                                            ),
-                                            BaseText(
-                                              text: userController.profile.value
-                                                      ?.nomorIndukKaryawan ??
-                                                  '',
-                                              bold: FontWeight.w500,
-                                            ),
-                                          ],
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 100,
+                      backgroundImage:
+                          Image.file(File(controller.image.value?.path ?? ''))
+                              .image,
+                    ),
+                    const SizedBox(height: 15),
+                    SizedBox(
+                      height: 250,
+                      width: Get.width,
+                      child: Material(
+                        color: Colors.white,
+                        elevation: 1,
+                        clipBehavior: Clip.antiAlias,
+                        borderRadius: BorderRadius.circular(10),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        BaseText(
+                                          text: userController
+                                                  .profile.value?.namaLengkap ??
+                                              '',
+                                          size: 16,
+                                          bold: FontWeight.w600,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            BaseText(
-                                              text: 'Current Time',
-                                              size: 12,
-                                              color: Colors.grey.shade600,
-                                            ),
-                                            BaseText(
-                                              text:
-                                                  controller.currentTime.value,
-                                              bold: FontWeight.w500,
-                                            ),
-                                          ],
+                                        BaseText(
+                                          text: userController
+                                                  .profile.value?.jabatan?.nama ??
+                                              '',
+                                          bold: FontWeight.w500,
                                         ),
-                                      ),
-                                      const SizedBox(width: 5),
-                                      const Icon(MingCute.time_line),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  const SizedBox(width: 10),
+                                  const Icon(
+                                    MingCute.user_3_line,
+                                    size: 35,
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                height: 15,
+                                color: Colors.grey.shade300,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        const Icon(MingCute.IDcard_line),
+                                        const SizedBox(width: 5),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              BaseText(
+                                                text: 'Employee ID',
+                                                size: 12,
+                                                color: Colors.grey.shade600,
+                                              ),
+                                              BaseText(
+                                                text: userController.profile.value
+                                                        ?.nomorIndukKaryawan ??
+                                                    '',
+                                                bold: FontWeight.w500,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              BaseText(
+                                                text: 'Current Time',
+                                                size: 12,
+                                                color: Colors.grey.shade600,
+                                              ),
+                                              BaseText(
+                                                text:
+                                                    controller.currentTime.value,
+                                                bold: FontWeight.w500,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        const Icon(MingCute.time_line),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 15),

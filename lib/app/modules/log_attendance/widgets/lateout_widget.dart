@@ -38,11 +38,14 @@ class LateOutWidget extends StatelessWidget {
           Expanded(
             child: controller.lateAttendance.isEmpty &&
                     controller.noOutAttendance.isEmpty
-                ? const BaseNoDataLottie(
-                    lottie: 'goodjob.json',
-                    title: 'Good Job!',
-                    subtitle: "You're never late and forget to clock out",
-                    showButton: false,
+                ? const SingleChildScrollView(
+                    child: BaseNoDataLottie(
+                      lottie: 'goodjob.json',
+                      lottieSize: 40,
+                      title: 'Good Job!',
+                      subtitle: "You're never late and forget to clock out",
+                      showButton: false,
+                    ),
                   )
                 : SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 15),

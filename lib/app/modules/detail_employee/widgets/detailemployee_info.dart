@@ -56,7 +56,7 @@ class DetailEmployeeInfo extends StatelessWidget {
                     child: TabBarView(
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        Padding(
+                        SingleChildScrollView(
                           padding: const EdgeInsets.all(15),
                           child: Column(
                             children: [
@@ -82,7 +82,7 @@ class DetailEmployeeInfo extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Padding(
+                        SingleChildScrollView(
                           padding: const EdgeInsets.all(15),
                           child: Column(
                             children: [

@@ -12,6 +12,7 @@ class BaseNoData extends StatelessWidget {
     required this.image,
     required this.title,
     required this.subtitle,
+    this.imageSize,
     this.showButton = true,
     this.onPressed,
   });
@@ -19,6 +20,7 @@ class BaseNoData extends StatelessWidget {
   final String image;
   final String title;
   final String subtitle;
+  final double? imageSize;
   final bool showButton;
   final void Function()? onPressed;
 
@@ -29,7 +31,10 @@ class BaseNoData extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset('assets/images/$image'),
+          SvgPicture.asset(
+            'assets/images/$image',
+            width: imageSize,
+          ),
           const SizedBox(height: 15),
           BaseText(
             text: title,
@@ -65,6 +70,7 @@ class BaseNoDataLottie extends StatelessWidget {
     required this.lottie,
     required this.title,
     required this.subtitle,
+    this.lottieSize,
     this.showButton = true,
     this.onPressed,
   });
@@ -72,6 +78,7 @@ class BaseNoDataLottie extends StatelessWidget {
   final String lottie;
   final String title;
   final String subtitle;
+  final double? lottieSize;
   final bool showButton;
   final void Function()? onPressed;
 
@@ -84,7 +91,7 @@ class BaseNoDataLottie extends StatelessWidget {
         children: [
           Lottie.asset(
             'assets/lotties/$lottie',
-            width: 50,
+            width: lottieSize,
             repeat: false,
             frameRate: FrameRate(144),
           ),
