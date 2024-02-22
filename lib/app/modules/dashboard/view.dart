@@ -19,7 +19,7 @@ class DashboardPage extends StatelessWidget {
       canPop: false,
       onPopInvoked: (didPop) {
         showCustomBottomSheet(
-          height: 200,
+          height: 180,
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
@@ -37,9 +37,12 @@ class DashboardPage extends StatelessWidget {
                   child: Column(
                     children: [
                       const Expanded(
-                        child: BaseText(
-                          text:
-                              'Are you sure want to exit and close Daly A-Team?',
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: BaseText(
+                            text:
+                                'Are you sure want to exit and close Daly A-Team?',
+                          ),
                         ),
                       ),
                       SizedBox(
