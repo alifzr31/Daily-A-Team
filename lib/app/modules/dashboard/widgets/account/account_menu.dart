@@ -61,6 +61,7 @@ class AccountMenu extends StatelessWidget {
                                     key: formKey.value,
                                     child: BaseFormField(
                                       hint: 'Password',
+                                      autofocus: true,
                                       controller: passwordController.value,
                                       obscureText: obscurePass.value,
                                       suffixIcon: IconButton(
@@ -97,7 +98,14 @@ class AccountMenu extends StatelessWidget {
                                                 ?.validate() ??
                                             false) {
                                           Get.back();
-                                          Get.toNamed('/payrollInfo');
+                                          Get.toNamed(
+                                            '/payrollInfo',
+                                            arguments: {
+                                              'name': controller.profile.value?.namaLengkap,
+                                              'jabatan': controller.profile.value?.jabatan?.nama,
+                                              'photo': controller.profile.value?.photo,
+                                            },
+                                          );
                                         }
                                       },
                                     ),
@@ -152,7 +160,7 @@ class AccountMenu extends StatelessWidget {
                   EvaIcons.chevron_right,
                   size: 25,
                 ),
-                onTap: () {},
+                onTap: () => Get.toNamed('/termOfUse'),
               ),
               BaseListTile(
                 leading: const Icon(MingCute.safety_certificate_line),
@@ -162,7 +170,7 @@ class AccountMenu extends StatelessWidget {
                   EvaIcons.chevron_right,
                   size: 25,
                 ),
-                onTap: () {},
+                onTap: () => Get.toNamed('/safetyAndPrivacy'),
               ),
             ],
           ),
