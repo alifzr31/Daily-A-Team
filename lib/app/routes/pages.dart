@@ -36,12 +36,16 @@ import 'package:dailyateam/app/modules/requests/req_attendance/binding.dart';
 import 'package:dailyateam/app/modules/requests/req_attendance/view.dart';
 import 'package:dailyateam/app/modules/requests/time_off/binding.dart';
 import 'package:dailyateam/app/modules/requests/time_off/view.dart';
+import 'package:dailyateam/app/modules/safety_and_privacy/binding.dart';
+import 'package:dailyateam/app/modules/safety_and_privacy/view.dart';
 import 'package:dailyateam/app/modules/schedule/binding.dart';
 import 'package:dailyateam/app/modules/schedule/view.dart';
 import 'package:dailyateam/app/modules/splash/binding.dart';
 import 'package:dailyateam/app/modules/splash/view.dart';
 import 'package:dailyateam/app/modules/team/binding.dart';
 import 'package:dailyateam/app/modules/team/view.dart';
+import 'package:dailyateam/app/modules/term_of_use/binding.dart';
+import 'package:dailyateam/app/modules/term_of_use/view.dart';
 import 'package:dailyateam/app/modules/updater/binding.dart';
 import 'package:dailyateam/app/modules/updater/view.dart';
 import 'package:dailyateam/app/routes/routes.dart';
@@ -163,6 +167,16 @@ abstract class AppPages {
       name: Routes.changePassword,
       page: () => const ChangePasswordPage(),
       binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: Routes.termOfUse,
+      page: () => const TermOfUsePage(),
+      binding: TermOfUseBinding(),
+    ),
+    GetPage(
+      name: Routes.safetyAndPrivacy,
+      page: () => const SafetyAndPrivacyPage(),
+      binding: SafetyAndPrivacyBinding(),
     ),
   ];
 }

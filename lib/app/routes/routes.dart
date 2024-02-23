@@ -26,4 +26,6 @@ class Routes {
   static const payrollInfo = '/payrollInfo';
   static const documentInfo = '/documentInfo';
   static const changePassword = '/changePassword';
+  static const termOfUse = '/termOfUse';
+  static const safetyAndPrivacy = '/safetyAndPrivacy';
 }
