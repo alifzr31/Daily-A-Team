@@ -238,9 +238,8 @@ class DashboardController extends GetxController {
         }
       }
     } on DioException catch (e) {
-      showLoading();
-
       if (e.response?.statusCode == 401) {
+        showLoading();
         await Future.delayed(const Duration(milliseconds: 1500), () async {
           Get.back();
           SharedPreferences sharedPreferences =
