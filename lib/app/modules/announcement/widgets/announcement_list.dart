@@ -1,3 +1,4 @@
+import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
 import 'package:dailyateam/app/core/values/show_custombottomsheet.dart';
 import 'package:dailyateam/app/modules/announcement/components/announcement_card.dart';
@@ -30,32 +31,43 @@ class AnnouncementList extends StatelessWidget {
                   );
                 },
               )
-            : ListView.builder(
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                itemCount: controller.selectedYear.value == null
-                    ? controller.announcement.length
-                    : controller.filteredAnnouncement.length,
-                itemBuilder: (context, index) {
-                  final announcement = controller.selectedYear.value == null
-                      ? controller.announcement[index]
-                      : controller.filteredAnnouncement[index];
-
-                  return AnnouncementCard(
-                    title: announcement.judul ?? '',
-                    date: announcement.tanggal ?? DateTime(0000),
-                    document: announcement.dokumen,
-                    dataLength: controller.announcement.length,
-                    index: index,
+            : controller.announcement.isEmpty
+                ? BaseNoData(
+                    image: 'announcement.svg',
+                    title: 'Announcement Empty',
+                    subtitle: 'Announcement is empty',
                     onPressed: () {
-                      showCustomBottomSheet(
-                        height: 350,
-                        child:
-                            AnnouncementBottomSheet(announcement: announcement),
+                      controller.isLoading.value = true;
+                      controller.announcement.clear();
+                      controller.fetchAnnouncement();
+                    },
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                    itemCount: controller.selectedYear.value == null
+                        ? controller.announcement.length
+                        : controller.filteredAnnouncement.length,
+                    itemBuilder: (context, index) {
+                      final announcement = controller.selectedYear.value == null
+                          ? controller.announcement[index]
+                          : controller.filteredAnnouncement[index];
+
+                      return AnnouncementCard(
+                        title: announcement.judul ?? '',
+                        date: announcement.tanggal ?? DateTime(0000),
+                        document: announcement.dokumen,
+                        dataLength: controller.announcement.length,
+                        index: index,
+                        onPressed: () {
+                          showCustomBottomSheet(
+                            height: 350,
+                            child: AnnouncementBottomSheet(
+                                announcement: announcement),
+                          );
+                        },
                       );
                     },
-                  );
-                },
-              ),
+                  ),
       ),
     );
   }

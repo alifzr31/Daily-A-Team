@@ -1,3 +1,4 @@
+import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
 import 'package:dailyateam/app/modules/dashboard/components/inbox/inbox_card.dart';
 import 'package:dailyateam/app/modules/dashboard/controller.dart';
@@ -30,42 +31,57 @@ class InboxList extends StatelessWidget {
                   );
                 },
               )
-            : RefreshIndicator(
-                onRefresh: controller.refreshInbox,
-                child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 35),
-                  itemCount: controller.inbox.length,
-                  itemBuilder: (context, index) {
-                    final inbox = controller.inbox[index];
+            : controller.inbox.isEmpty
+                ? BaseNoData(
+                    image: 'inbox.svg',
+                    title: 'Inbox Empty',
+                    subtitle: 'Inbox is empty',
+                    onPressed: () {
+                      controller.inboxLoading.value = true;
+                      controller.inbox.clear();
+                      if (controller.levKar.value == '0') {
+                        controller.fetchInboxStaff();
+                      } else {
+                        controller.fetchInboxManager();
+                      }
+                    },
+                  )
+                : RefreshIndicator(
+                    onRefresh: controller.refreshInbox,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 35),
+                      itemCount: controller.inbox.length,
+                      itemBuilder: (context, index) {
+                        final inbox = controller.inbox[index];
 
-                    return InboxCard(
-                      receiver: inbox.penerima?.name ?? '',
-                      sender: inbox.pengirim?.name ?? '',
-                      title: inbox.title ?? '',
-                      createdAt: inbox.createdAt ?? DateTime(0000),
-                      isiPengirim: inbox.isiPengirim,
-                      isiPenerima: inbox.isiPenerima,
-                      notes: inbox.notes,
-                      statusBawahan: inbox.statusBawahan,
-                      statusAtasan: inbox.statusAtasan,
-                      levKar: controller.levKar.value,
-                      dataLength: controller.inbox.length,
-                      index: index,
-                      onTap: () {
-                        if (controller.levKar.value == '0') {
-                          if (inbox.statusBawahan == 'unread') {
-                            controller.markReadStaff(inbox.id);
-                          }
-                        } else {
-                          if (inbox.statusAtasan == 'unread') {
-                            controller.markReadManager(inbox.id);
-                          }
-                        }
+                        return InboxCard(
+                          receiver: inbox.penerima?.name ?? '',
+                          sender: inbox.pengirim?.name ?? '',
+                          title: inbox.title ?? '',
+                          createdAt: inbox.createdAt ?? DateTime(0000),
+                          isiPengirim: inbox.isiPengirim,
+                          isiPenerima: inbox.isiPenerima,
+                          notes: inbox.notes,
+                          statusBawahan: inbox.statusBawahan,
+                          statusAtasan: inbox.statusAtasan,
+                          levKar: controller.levKar.value,
+                          dataLength: controller.inbox.length,
+                          index: index,
+                          onTap: () {
+                            if (controller.levKar.value == '0') {
+                              if (inbox.statusBawahan == 'unread') {
+                                controller.markReadStaff(inbox.id);
+                              }
+                            } else {
+                              if (inbox.statusAtasan == 'unread') {
+                                controller.markReadManager(inbox.id);
+                              }
+                            }
+                          },
+                        );
                       },
-                    );
-                  },
-                ),
-              ),
+                    ),
+                  ),
       ),
     );
   }

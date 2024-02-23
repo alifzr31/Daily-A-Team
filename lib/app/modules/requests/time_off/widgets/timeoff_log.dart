@@ -1,3 +1,4 @@
+import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
 import 'package:dailyateam/app/modules/requests/time_off/components/logtimeoff_card.dart';
 import 'package:dailyateam/app/modules/requests/time_off/controller.dart';
@@ -32,29 +33,41 @@ class TimeOffLog extends StatelessWidget {
                 );
               },
             )
-          : RefreshIndicator(
-              onRefresh: controller.refreshLogTimeOff,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(15),
-                itemCount: controller.timeOff.length,
-                itemBuilder: (context, index) {
-                  final timeOff = controller.timeOff[index];
+          : controller.timeOff.isEmpty
+              ? BaseNoData(
+                  image: 'timeoff.svg',
+                  title: 'Log Req Time Off Empty',
+                  subtitle: 'Log req time off is empty',
+                  onPressed: () {
+                    controller.logLoading.value = true;
+                    controller.timeOff.clear();
+                    controller.fetchLogTimeOff();
+                  },
+                )
+              : RefreshIndicator(
+                  onRefresh: controller.refreshLogTimeOff,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(15),
+                    itemCount: controller.timeOff.length,
+                    itemBuilder: (context, index) {
+                      final timeOff = controller.timeOff[index];
 
-                  return LogTimeOffCard(
-                    statusOff: timeOff.statusoff ?? '',
-                    requestDate: timeOff.tanggal ?? DateTime(0000),
-                    reason: timeOff.notesAju ?? '-',
-                    notes: timeOff.notesAju ?? '',
-                    document: timeOff.dokumen ?? '',
-                    createdAt: timeOff.createdAt ?? DateTime(0000),
-                    statusApprove: timeOff.statusApprove ?? '',
-                    index: index,
-                    dataLength: controller.timeOff.length,
-                    onPressedCancel: () => controller.cancelTimeOff(timeOff.id),
-                  );
-                },
-              ),
-            ),
+                      return LogTimeOffCard(
+                        statusOff: timeOff.statusoff ?? '',
+                        requestDate: timeOff.tanggal ?? DateTime(0000),
+                        reason: timeOff.notesAju ?? '-',
+                        notes: timeOff.notesAju ?? '',
+                        document: timeOff.dokumen ?? '',
+                        createdAt: timeOff.createdAt ?? DateTime(0000),
+                        statusApprove: timeOff.statusApprove ?? '',
+                        index: index,
+                        dataLength: controller.timeOff.length,
+                        onPressedCancel: () =>
+                            controller.cancelTimeOff(timeOff.id),
+                      );
+                    },
+                  ),
+                ),
     );
   }
 }

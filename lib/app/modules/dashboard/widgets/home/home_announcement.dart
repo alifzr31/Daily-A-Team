@@ -1,3 +1,4 @@
+import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
 import 'package:dailyateam/app/components/base_text.dart';
 import 'package:dailyateam/app/components/base_textbutton.dart';
@@ -53,35 +54,49 @@ class HomeAnnouncement extends StatelessWidget {
                               );
                             },
                           )
-                        : ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: controller.announcement.length >= 3
-                                ? controller.announcement.sublist(0, 3).length
-                                : controller.announcement.length,
-                            itemBuilder: (context, index) {
-                              final announcement =
-                                  controller.announcement.length >= 3
-                                      ? controller.announcement
-                                          .sublist(0, 3)[index]
-                                      : controller.announcement[index];
-
-                              return HomeAnnouncementCard(
-                                title: announcement.judul ?? '',
-                                date: announcement.tanggal ?? DateTime(0000),
-                                document: announcement.dokumen,
-                                dataLength: controller.announcement.length,
-                                index: index,
+                        : controller.announcement.isEmpty
+                            ? BaseNoData(
+                                image: 'announcement.svg',
+                                title: 'Announcement Empty',
+                                subtitle: 'Announcement is empty',
                                 onPressed: () {
-                                  showCustomBottomSheet(
-                                    height: 350,
-                                    child: HomeAnnouncementBottomSheet(
-                                      announcement: announcement,
-                                    ),
+                                  controller.announcementLoading.value = true;
+                                  controller.announcement.clear();
+                                  controller.fetchAnnouncement();
+                                },
+                              )
+                            : ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: controller.announcement.length >= 3
+                                    ? controller.announcement
+                                        .sublist(0, 3)
+                                        .length
+                                    : controller.announcement.length,
+                                itemBuilder: (context, index) {
+                                  final announcement =
+                                      controller.announcement.length >= 3
+                                          ? controller.announcement
+                                              .sublist(0, 3)[index]
+                                          : controller.announcement[index];
+
+                                  return HomeAnnouncementCard(
+                                    title: announcement.judul ?? '',
+                                    date:
+                                        announcement.tanggal ?? DateTime(0000),
+                                    document: announcement.dokumen,
+                                    dataLength: controller.announcement.length,
+                                    index: index,
+                                    onPressed: () {
+                                      showCustomBottomSheet(
+                                        height: 350,
+                                        child: HomeAnnouncementBottomSheet(
+                                          announcement: announcement,
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                          ),
+                              ),
                   ),
                   BaseTextButton(
                     size: 14,

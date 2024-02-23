@@ -1,3 +1,4 @@
+import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
 import 'package:dailyateam/app/core/values/app_helpers.dart';
 import 'package:dailyateam/app/modules/requests/overtime/components/overtime_card.dart';
@@ -33,28 +34,40 @@ class OvertimeLog extends StatelessWidget {
                 );
               },
             )
-          : RefreshIndicator(
-              onRefresh: controller.refreshLogOvertime,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(15),
-                itemCount: controller.overtime.length,
-                itemBuilder: (context, index) {
-                  final overtime = controller.overtime[index];
+          : controller.overtime.isEmpty
+              ? BaseNoData(
+                  image: 'overtime.svg',
+                  title: 'Log Req Overtime Empty',
+                  subtitle: 'Log req overtime is empty',
+                  onPressed: () {
+                    controller.logLoading.value = true;
+                    controller.overtime.clear();
+                    controller.fetchLogOvertime();
+                  },
+                )
+              : RefreshIndicator(
+                  onRefresh: controller.refreshLogOvertime,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(15),
+                    itemCount: controller.overtime.length,
+                    itemBuilder: (context, index) {
+                      final overtime = controller.overtime[index];
 
-                  return OvertimeCard(
-                    time: '${overtime.mulai} - ${overtime.akhir}',
-                    duration: AppHelpers.convertDuration(overtime.durasi ?? ''),
-                    requestDate: overtime.tanggalOvertime ?? DateTime(0000),
-                    compensation: overtime.kompensasi ?? '',
-                    reason: overtime.note ?? '-',
-                    statusApprove: overtime.statusApprove ?? '',
-                    createdAt: overtime.createdAt ?? DateTime(0000),
-                    index: index,
-                    dataLength: controller.overtime.length,
-                  );
-                },
-              ),
-            ),
+                      return OvertimeCard(
+                        time: '${overtime.mulai} - ${overtime.akhir}',
+                        duration:
+                            AppHelpers.convertDuration(overtime.durasi ?? ''),
+                        requestDate: overtime.tanggalOvertime ?? DateTime(0000),
+                        compensation: overtime.kompensasi ?? '',
+                        reason: overtime.note ?? '-',
+                        statusApprove: overtime.statusApprove ?? '',
+                        createdAt: overtime.createdAt ?? DateTime(0000),
+                        index: index,
+                        dataLength: controller.overtime.length,
+                      );
+                    },
+                  ),
+                ),
     );
   }
 }

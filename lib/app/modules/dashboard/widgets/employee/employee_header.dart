@@ -31,12 +31,13 @@ class EmployeeHeader extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            BaseFormField(
-              hint: 'Search Employee...',
-              prefixIcon: const Icon(MingCute.search_3_line),
-              isOutline: true,
-              onChanged: (value) => controller.findEmployee(value ?? ''),
-            ),
+            if (controller.employeeLoading.isFalse)
+              BaseFormField(
+                hint: 'Search Employee...',
+                prefixIcon: const Icon(MingCute.search_3_line),
+                isOutline: true,
+                onChanged: (value) => controller.findEmployee(value ?? ''),
+              ),
           ],
         ),
       ),

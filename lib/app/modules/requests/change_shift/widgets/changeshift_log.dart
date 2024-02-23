@@ -1,3 +1,4 @@
+import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
 import 'package:dailyateam/app/core/values/app_helpers.dart';
 import 'package:dailyateam/app/modules/requests/change_shift/components/changeshift_card.dart';
@@ -32,34 +33,45 @@ class ChangeShiftLog extends StatelessWidget {
                 );
               },
             )
-          : RefreshIndicator(
-              onRefresh: controller.refreshLogChangeShift,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(15),
-                itemCount: controller.changeShift.length,
-                itemBuilder: (context, index) {
-                  final changeShift = controller.changeShift[index];
+          : controller.changeShift.isEmpty
+              ? BaseNoData(
+                  image: 'change_shift.svg',
+                  title: 'Log Req Change Shift Empty',
+                  subtitle: 'Log req change shift is empty',
+                  onPressed: () {
+                    controller.logLoading.value = true;
+                    controller.changeShift.clear();
+                    controller.fetchLogChangeShift();
+                  },
+                )
+              : RefreshIndicator(
+                  onRefresh: controller.refreshLogChangeShift,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(15),
+                    itemCount: controller.changeShift.length,
+                    itemBuilder: (context, index) {
+                      final changeShift = controller.changeShift[index];
 
-                  return ChangeShiftCard(
-                    fromShift: changeShift.shiftAwal ?? '',
-                    toShift: changeShift.shiftAkhir ?? '',
-                    requestDate: changeShift.tanggalAwal ==
-                            changeShift.tanggalAkhir
-                        ? AppHelpers.dateFormat(
-                            changeShift.tanggalAwal ?? DateTime(0000))
-                        : '${AppHelpers.dateFormat(changeShift.tanggalAwal ?? DateTime(0000))} - ${AppHelpers.dateFormat(changeShift.tanggalAkhir ?? DateTime(0000))}',
-                    offDate: changeShift.tanggalOff,
-                    reason: changeShift.notes ?? '-',
-                    statusApprove: changeShift.statusApprove ?? '',
-                    createdAt: changeShift.createdAt ?? DateTime(0000),
-                    index: index,
-                    dataLength: controller.changeShift.length,
-                    onPressedCancel: () =>
-                        controller.cancelChangeShift(changeShift.id),
-                  );
-                },
-              ),
-            ),
+                      return ChangeShiftCard(
+                        fromShift: changeShift.shiftAwal ?? '',
+                        toShift: changeShift.shiftAkhir ?? '',
+                        requestDate: changeShift.tanggalAwal ==
+                                changeShift.tanggalAkhir
+                            ? AppHelpers.dateFormat(
+                                changeShift.tanggalAwal ?? DateTime(0000))
+                            : '${AppHelpers.dateFormat(changeShift.tanggalAwal ?? DateTime(0000))} - ${AppHelpers.dateFormat(changeShift.tanggalAkhir ?? DateTime(0000))}',
+                        offDate: changeShift.tanggalOff,
+                        reason: changeShift.notes ?? '-',
+                        statusApprove: changeShift.statusApprove ?? '',
+                        createdAt: changeShift.createdAt ?? DateTime(0000),
+                        index: index,
+                        dataLength: controller.changeShift.length,
+                        onPressedCancel: () =>
+                            controller.cancelChangeShift(changeShift.id),
+                      );
+                    },
+                  ),
+                ),
     );
   }
 }
