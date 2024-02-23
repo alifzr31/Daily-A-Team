@@ -17,7 +17,7 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-        height: controller.levKar.value == null ? 250 : 310,
+        height: controller.levKar.value == null ? 200 : 310,
         width: Get.width,
         margin: controller.levKar.value == null
             ? null
