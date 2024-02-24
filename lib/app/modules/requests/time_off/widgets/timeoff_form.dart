@@ -33,35 +33,6 @@ class TimeOffForm extends StatelessWidget {
                     key: controller.formKey.value,
                     child: Column(
                       children: [
-                        BaseFormField(
-                          controller: controller.dateController.value,
-                          hint: 'Pick Date Request',
-                          readOnly: true,
-                          onTap: () {
-                            DatePicker.showDatePicker(
-                              context,
-                              locale: LocaleType.en,
-                              minTime: DateTime(DateTime.now().year, 1, 1),
-                              maxTime: DateTime(DateTime.now().year, 12, 31),
-                              currentTime: controller.selectedDate.value,
-                              onConfirm: (date) {
-                                controller.selectedDate.value = date;
-                                controller.selectedDateString.value =
-                                    DateFormat('yyyy-MM-dd').format(date);
-                                controller.dateController.value.text =
-                                    AppHelpers.dayDateFormat(date);
-                              },
-                            );
-                          },
-                          validator: (value) {
-                            if (controller.dateController.value.text.isEmpty) {
-                              return 'Pick your date request';
-                            }
-
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 15),
                         BaseDropdown(
                           hint: controller.choiceLoading.value
                               ? 'Please Wait...'
@@ -153,6 +124,51 @@ class TimeOffForm extends StatelessWidget {
                               return null;
                             },
                           ),
+                        const SizedBox(height: 15),
+                        BaseFormField(
+                          controller: controller.dateController.value,
+                          hint: 'Pick Date Request',
+                          readOnly: true,
+                          onTap: controller.selectedSubReason.value == null
+                              ? null
+                              : () {
+                                  DatePicker.showDatePicker(
+                                    context,
+                                    locale: LocaleType.en,
+                                    minTime: controller
+                                                .selectedSubReason.value ==
+                                            '1'
+                                        ? DateTime.now()
+                                            .subtract(const Duration(days: 3))
+                                        : DateTime(DateTime.now().year, 1, 1),
+                                    maxTime: controller
+                                                .selectedSubReason.value ==
+                                            '1'
+                                        ? DateTime.now()
+                                        : DateTime(DateTime.now().year, 12, 31),
+                                    currentTime: controller.selectedDate.value,
+                                    onConfirm: (date) {
+                                      controller.selectedDate.value = date;
+                                      controller.selectedDateString.value =
+                                          DateFormat('yyyy-MM-dd').format(date);
+                                      controller.dateController.value.text =
+                                          AppHelpers.dayDateFormat(date);
+                                    },
+                                  );
+                                },
+                          validator: (value) {
+                            if (controller.selectedSubReason.value == null) {
+                              return 'Please choose detail reason first';
+                            } else {
+                              if (controller
+                                  .dateController.value.text.isEmpty) {
+                                return 'Pick your date request';
+                              }
+                            }
+
+                            return null;
+                          },
+                        ),
                         if (controller.selectedSubReason.value == '1' &&
                             controller.picture.value != null)
                           const SizedBox(height: 15),
