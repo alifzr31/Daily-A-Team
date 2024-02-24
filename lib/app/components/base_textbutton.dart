@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class BaseTextButton extends StatelessWidget {
   const BaseTextButton({
@@ -6,12 +7,14 @@ class BaseTextButton extends StatelessWidget {
     required this.text,
     this.size,
     this.color,
+    this.decoration,
     this.onPressed,
   });
 
   final String text;
   final double? size;
   final Color? color;
+  final TextDecoration? decoration;
   final void Function()? onPressed;
 
   @override
@@ -26,6 +29,7 @@ class BaseTextButton extends StatelessWidget {
         style: TextStyle(
           fontSize: size,
           color: color,
+          decoration: decoration,
           fontWeight: FontWeight.w500,
           fontFamily: 'Poppins',
         ),
