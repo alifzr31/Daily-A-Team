@@ -3,6 +3,7 @@ import 'package:dailyateam/app/components/base_shimmer.dart';
 import 'package:dailyateam/app/core/values/app_helpers.dart';
 import 'package:dailyateam/app/modules/requests/change_shift/components/changeshift_card.dart';
 import 'package:dailyateam/app/modules/requests/change_shift/controller.dart';
+import 'package:dailyateam/app/modules/requests/components/cancel_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -61,13 +62,17 @@ class ChangeShiftLog extends StatelessWidget {
                                 changeShift.tanggalAwal ?? DateTime(0000))
                             : '${AppHelpers.dateFormat(changeShift.tanggalAwal ?? DateTime(0000))} - ${AppHelpers.dateFormat(changeShift.tanggalAkhir ?? DateTime(0000))}',
                         offDate: changeShift.tanggalOff,
-                        reason: changeShift.notes ?? '-',
+                        reason: changeShift.keterangan ?? '-',
                         statusApprove: changeShift.statusApprove ?? '',
                         createdAt: changeShift.createdAt ?? DateTime(0000),
                         index: index,
                         dataLength: controller.changeShift.length,
-                        onPressedCancel: () =>
-                            controller.cancelChangeShift(changeShift.id),
+                        onPressedCancel: () => cancelAlert(
+                          context,
+                          request: '${changeShift.shiftAwal} to ${changeShift.shiftAkhir}',
+                          requestDate: changeShift.tanggalAwal,
+                          onConfirmBtnTap: () => controller.cancelChangeShift(changeShift.id),
+                        ),
                       );
                     },
                   ),

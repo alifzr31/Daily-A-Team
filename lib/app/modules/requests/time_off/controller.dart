@@ -200,6 +200,7 @@ class TimeOffController extends GetxController {
         await fetchLogTimeOff().then((value) {
           update();
           Get.back();
+          Get.back();
         });
         successSnackbar(
           'Cancel Req Time Off Success',

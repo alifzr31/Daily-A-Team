@@ -122,11 +122,20 @@ class ReqAttendanceCard extends StatelessWidget {
                   color: Colors.grey.shade600,
                 ),
                 if (statusApprove == 'ReqAttendance')
-                  BaseTextButton(
-                    text: 'Cancel',
-                    size: 12,
+                  Material(
                     color: Colors.red,
-                    onPressed: onPressedCancel,
+                    borderRadius: BorderRadius.circular(3),
+                    clipBehavior: Clip.antiAlias,
+                    elevation: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: BaseTextButton(
+                        text: 'Cancel',
+                        size: 12,
+                        color: Colors.white,
+                        onPressed: onPressedCancel,
+                      ),
+                    ),
                   ),
               ],
             ),

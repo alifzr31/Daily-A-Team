@@ -243,6 +243,7 @@ class ChangeShiftController extends GetxController {
         await fetchLogChangeShift().then((value) {
           update();
           Get.back();
+          Get.back();
         });
 
         successSnackbar(

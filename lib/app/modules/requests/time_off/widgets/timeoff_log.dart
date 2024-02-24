@@ -1,5 +1,6 @@
 import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
+import 'package:dailyateam/app/modules/requests/components/cancel_alert.dart';
 import 'package:dailyateam/app/modules/requests/time_off/components/logtimeoff_card.dart';
 import 'package:dailyateam/app/modules/requests/time_off/controller.dart';
 import 'package:flutter/material.dart';
@@ -62,8 +63,12 @@ class TimeOffLog extends StatelessWidget {
                         statusApprove: timeOff.statusApprove ?? '',
                         index: index,
                         dataLength: controller.timeOff.length,
-                        onPressedCancel: () =>
-                            controller.cancelTimeOff(timeOff.id),
+                        onPressedCancel: () => cancelAlert(
+                          context,
+                          request: timeOff.statusoff,
+                          requestDate: timeOff.tanggal,
+                          onConfirmBtnTap: () => controller.cancelTimeOff(timeOff.id),
+                        ),
                       );
                     },
                   ),

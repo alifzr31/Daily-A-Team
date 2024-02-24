@@ -1,5 +1,6 @@
 import 'package:dailyateam/app/components/base_nodata.dart';
 import 'package:dailyateam/app/components/base_shimmer.dart';
+import 'package:dailyateam/app/modules/requests/components/cancel_alert.dart';
 import 'package:dailyateam/app/modules/requests/req_attendance/components/reqattendance_card.dart';
 import 'package:dailyateam/app/modules/requests/req_attendance/controller.dart';
 import 'package:flutter/material.dart';
@@ -61,8 +62,12 @@ class ReqAttendanceLog extends StatelessWidget {
                         createdAt: logReqAttendance.createdAt ?? DateTime(0000),
                         index: index,
                         dataLength: controller.logReqAttendance.length,
-                        onPressedCancel: () =>
-                            controller.cancelReqAttendance(logReqAttendance.id),
+                        onPressedCancel: () => cancelAlert(
+                          context,
+                          request: '${logReqAttendance.jenis} (${logReqAttendance.jam})',
+                          requestDate: logReqAttendance.tanggal,
+                          onConfirmBtnTap: () => controller.cancelReqAttendance(logReqAttendance.id),
+                        ),
                       );
                     },
                   ),

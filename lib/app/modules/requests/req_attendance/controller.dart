@@ -142,6 +142,7 @@ class ReqAttendanceController extends GetxController {
         await fetchLogReqAttendance().then((value) {
           update();
           Get.back();
+          Get.back();
         });
 
         successSnackbar(
