@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(
@@ -67,21 +68,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Daily A-Team',
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF9FAFF),
-        fontFamily: 'Poppins',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: navyColor,
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      splitScreenMode: true,
+      useInheritedMediaQuery: true,
+      builder: (context, child) => GetMaterialApp(
+        title: 'Daily A-Team',
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xFFF9FAFF),
+          fontFamily: 'Poppins',
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: navyColor,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
+        debugShowCheckedModeBanner: false,
+        smartManagement: SmartManagement.full,
+        defaultTransition: Transition.cupertino,
+        initialRoute: '/',
+        getPages: AppPages.pages,
       ),
-      debugShowCheckedModeBanner: false,
-      smartManagement: SmartManagement.full,
-      defaultTransition: Transition.cupertino,
-      initialRoute: '/',
-      getPages: AppPages.pages,
     );
   }
 }
