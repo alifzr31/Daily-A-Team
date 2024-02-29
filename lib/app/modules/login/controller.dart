@@ -62,17 +62,10 @@ class LoginController extends GetxController {
     } on dio.DioException catch (e) {
       Get.back();
       if (e.response?.statusCode == 500) {
-        if (e.response?.data['message'] != null) {
-          infoSnackbar(
-            'Log In Failed',
-            'Your account is not active',
-          );
-        } else {
-          failedSnackbar(
-            'Log In Failed',
-            'Oooppss something went wrong. error:${e.response?.statusCode}',
-          );
-        }
+        failedSnackbar(
+          'Log In Failed',
+          'Oooppss something went wrong. error:${e.response?.statusCode}',
+        );
       } else {
         infoSnackbar(
           'Log In Failed',
